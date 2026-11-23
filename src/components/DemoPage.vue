@@ -13,6 +13,10 @@
         <button @click="handleGetTime(token)">Get Time</button>
     </div>
 
+    <div style="margin-top: 20px;">
+        <button @click="toLogout">Logout</button>
+    </div>
+
 </template>
 
 <script setup lang="ts">
@@ -23,7 +27,7 @@ import { useLogin } from '../api/useLogin'
 const store = useStore()
 const { token } = storeToRefs(store)
 const { setToken } = store
-const { login,refreshCookie,getTime } = useLogin()
+const { login,refreshCookie,getTime,logout } = useLogin()
 
 const handleLogin = async () => {
     const response = await login(user.value.username, user.value.password);    
@@ -33,6 +37,11 @@ const handleLogin = async () => {
 const handleGetTime = async (token: string) => {    
     const response = await getTime(token);
     alert(response);
+}
+
+const toLogout = async () => {
+    setToken('');
+    await logout();
 }
 
 import type { User } from '../types/user'

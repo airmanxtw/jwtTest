@@ -7,6 +7,10 @@ export const useLogin = () => {
         return response.data;
     }
 
+    const logout = async () => {
+        await axiosInstance.get('/jwt/revokeRefreshToken', { withCredentials: true });
+    } 
+
     const refreshCookie = async () => {
         await axiosInstance.get('/jwt/refreshSelf', { withCredentials: true });        
     }
@@ -16,6 +20,8 @@ export const useLogin = () => {
         return response.data;
     }
 
-    return {login,refreshCookie,getTime}
+    
+
+    return {login,refreshCookie,getTime,logout}
 
 }
